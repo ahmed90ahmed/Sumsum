@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سمسم - قصة حب خالدة</title>
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --secondary: #c0392b;
+            --gold: #f1c40f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(241, 196, 15, 0.5);
+            margin-bottom: 3rem;
+            transform: translateY(-50px);
+            opacity: 0;
+            animation: titleEntrance 1.5s ease-out forwards;
+        }
+
+        #loveButton {
+            padding: 1.5rem 4rem;
+            font-size: 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.3);
+            position: relative;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        #loveButton::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        #loveButton:hover::before {
+            left: 100%;
+        }
+
+        .video-wrapper {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .video-frame {
+            position: absolute;
+            width: 105%;
+            height: 110%;
+            top: -5%;
+            left: -2.5%;
+            border: 3px solid var(--gold);
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(241, 196, 15, 0.3);
+            pointer-events: none;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            transform: scale(0.98);
+            filter: brightness(1.05) contrast(1.1);
+        }
+
+        #message {
+            font-size: 3.5rem;
+            color: white;
+            font-family: 'Dancing Script', cursive;
+            margin: 3rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+
+        .envelope {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes titleEntrance {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes particle {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .title { font-size: 2.5rem; }
+            #loveButton { font-size: 1.5rem; padding: 1rem 2rem; }
+            #message { font-size: 2.5rem; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <canvas class="particles"></canvas>
+
+    <div class="container">
+        <h1 class="title">❤️ إلى  سمسم ❤️</h1>
+        
+        <button id="loveButton">إفتحي قلبي ❤️</button>
+
+        <div class="video-wrapper">
+            <div class="video-frame"></div>
+            <video id="mainVideo" controls >
+                <source src="video/عيد الحب _ سلطان خليفة (حقروص) - eyd alhab _ Sultan Khalifa (78roo9) - 2021.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div id="message">أنتِ عالمي كله يا سمسم</div>
+
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M464 64H48C21.5 64 0 85.5 0 112v288c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48V112c0-26.5-21.5-48-48-48zM48 96h416c8.8 0 16 7.2 16 16v41.4c-21.9 18.5-53.2 44-150.6 121.3-16.9 13.4-50.2 45.7-73.4 45.3-23.2.4-56.6-31.9-73.4-45.3C85.2 197.4 53.9 171.9 32 153.4V112c0-8.8 7.2-16 16-16z' fill='%23fff'/%3E%3C/svg%3E" 
+             class="envelope" onclick="showSecretMessage()">
+    </div>
+
+    <script>
+        // تأثير الجسيمات
+        const canvas = document.querySelector('.particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 100;
+                this.size = Math.random() * 3 + 1;
+                this.speed = Math.random() * 3 + 1;
+                this.angle = Math.random() * 360;
+            }
+
+            update() {
+                this.y -= this.speed;
+                this.angle += 0.5;
+                if (this.y < -100) this.reset();
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.size/4})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const particles = Array(100).fill().map(() => new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // التفاعل الرئيسي
+        const button = document.getElementById('loveButton');
+        const videoWrapper = document.querySelector('.video-wrapper');
+        const message = document.getElementById('message');
+        const video = document.getElementById('mainVideo');
+
+        button.addEventListener('click', () => {
+            button.style.transform = 'scale(0.95)';
+            button.style.opacity = '0';
+            
+            setTimeout(() => {
+                videoWrapper.style.opacity = '1';
+                videoWrapper.style.transform = 'scale(1)';
+                video.play();
+            }, 800);
+
+            setTimeout(() => {
+                message.style.opacity = '1';
+                message.style.transform = 'translateY(0)';
+            }, 1600);
+
+            createHearts();
+        });
+
+        function createHearts() {
+            for(let i = 0; i < 33; i++) {
+                const heart = document.createElement('div');
+                heart.style.cssText = `
+                    position: fixed;
+                    font-size: ${Math.random() * 30 + 20}px;
+                    left: ${Math.random() * 100}vw;
+                    animation: heartFloat ${Math.random() * 3 + 2}s ease-out;
+                    color: #ff3366;
+                    pointer-events: none;
+                `;
+                heart.innerHTML = '❤️';
+                document.body.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 3000);
+            }
+        }
+
+        function showSecretMessage() {
+            const msg = prompt("أدعي كلمة السر الحلوة:");
+            if (msg === "سمسم") {
+                alert("أنتِ أجمل شيء في حياتي... أحبك أكثر من كل النجوم في السماء 🌌💖");
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
